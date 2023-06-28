@@ -6,12 +6,11 @@ from robocorp.tasks import task
 def solve_challenge():
     """Solve the RPA challenge"""
     browser.configure(
-        slowmo=100,
         browser_engine="chromium",
         screenshot="only-on-failure",
-        headless=False,
+        headless=True,
     )
-
+        
     http.download("https://rpachallenge.com/assets/downloadFiles/challenge.xlsx")
     worksheet = excel.open_workbook("challenge.xlsx").worksheet("Sheet1")
 
