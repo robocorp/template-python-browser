@@ -1,4 +1,4 @@
-# Template: Python based Browser automations
+# Template: Python - Browser automation with Playwright
 
 This template leverages the new python open-source structure [robo](https://github.com/robocorp/robo), the [libraries](https://github.com/robocorp/robo#libraries) from to same project as well.
 
