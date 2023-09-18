@@ -1,5 +1,8 @@
-from robocorp import browser, excel, http
+from robocorp import browser
 from robocorp.tasks import task
+
+from RPA.Excel.Files import Files as Excel
+from RPA.HTTP import HTTP
 
 
 @task
@@ -10,14 +13,17 @@ def solve_challenge():
         screenshot="only-on-failure",
         headless=True,
     )
-        
-    http.download("https://rpachallenge.com/assets/downloadFiles/challenge.xlsx")
-    worksheet = excel.open_workbook("challenge.xlsx").worksheet("Sheet1")
+
+    HTTP().download("https://rpachallenge.com/assets/downloadFiles/challenge.xlsx")
+
+    excel = Excel()
+    excel.open_workbook("challenge.xlsx")
+    rows = excel.read_worksheet_as_table("Sheet1", header=True)
 
     page = browser.goto("https://rpachallenge.com/")
     page.click("button:text('Start')")
 
-    for row in worksheet.as_table(header=True):
+    for row in rows:
         fill_and_submit_form(row)
 
     element = page.locator("css=div.congratulations")
