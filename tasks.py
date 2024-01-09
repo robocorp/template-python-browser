@@ -1,31 +1,39 @@
+from pathlib import Path
+
+import requests
 from robocorp import browser
 from robocorp.tasks import task
 
 from RPA.Excel.Files import Files as Excel
-from RPA.HTTP import HTTP
+
+
+OUTPUT_DIR = Path("output")
+FILE_NAME = "challenge.xlsx"
+REMOTE_FILE = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
 
 
 @task
 def solve_challenge():
     """Solve the RPA challenge"""
+    response = requests.get(REMOTE_FILE)
+    response.raise_for_status()
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    file_path = OUTPUT_DIR / FILE_NAME
+    file_path.write_bytes(response.content)
+
+    excel = Excel()
+    excel.open_workbook(file_path)
+    rows = excel.read_worksheet_as_table("Sheet1", header=True)
+
     browser.configure(
         browser_engine="chromium",
         screenshot="only-on-failure",
         headless=True,
     )
-
-    HTTP().download("https://rpachallenge.com/assets/downloadFiles/challenge.xlsx")
-
-    excel = Excel()
-    excel.open_workbook("challenge.xlsx")
-    rows = excel.read_worksheet_as_table("Sheet1", header=True)
-
     page = browser.goto("https://rpachallenge.com/")
     page.click("button:text('Start')")
-
     for row in rows:
         fill_and_submit_form(row)
-
     element = page.locator("css=div.congratulations")
     browser.screenshot(element)
 
