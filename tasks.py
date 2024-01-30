@@ -6,7 +6,6 @@ from robocorp import browser
 from robocorp.tasks import task
 from RPA.Excel.Files import Files as Excel
 
-
 FILE_NAME = "challenge.xlsx"
 EXCEL_URL = f"https://rpachallenge.com/assets/downloadFiles/{FILE_NAME}"
 OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
@@ -20,9 +19,7 @@ def solve_challenge():
     rpachallenge.com.
     """
     browser.configure(
-        browser_engine="chromium",
-        screenshot="only-on-failure",
-        headless=True,
+        browser_engine="chromium", screenshot="only-on-failure", headless=True
     )
     try:
         # Reads a table from an Excel file hosted online.
@@ -45,7 +42,16 @@ def solve_challenge():
 
 
 def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
-    """Downloads a file from the given URL into a custom folder & name."""
+    """Downloads a file from the given URL into a custom folder & name.
+
+    Args:
+        url (str): The target URL from which we'll download the file.
+        target_dir (Path): The destination directory in which we'll place the file.
+        target_filename (str): The local file name inside which the content gets saved.
+
+    Returns:
+        Path: A Path object pointing to the downloaded file.
+    """
     # Obtain the content of the file hosted online.
     response = requests.get(url)
     response.raise_for_status()  # this will raise an exception if the request fails
@@ -57,7 +63,13 @@ def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
 
 
 def fill_and_submit_form(row: dict, *, page: browser.Page):
-    """Fills a single form with the information of a single row from the table."""
+    """Fills a single form with the information of a single row from the table.
+
+    Args:
+        row (dict): One row from the generated table out of the input Excel file.
+        page (browser.Page): The page object over which the browser interactions are
+            done.
+    """
     field_data_map = {
         "labelFirstName": "First Name",
         "labelLastName": "Last Name",
@@ -65,8 +77,8 @@ def fill_and_submit_form(row: dict, *, page: browser.Page):
         "labelRole": "Role in Company",
         "labelAddress": "Address",
         "labelEmail": "Email",
-        "labelPhone": "Phone Number"
+        "labelPhone": "Phone Number",
     }
-    for field, key in field_data_map.values():
-        page.fill(f"//input[@ng-reflect-name='{field}']", row[key])
+    for field, key in field_data_map.items():
+        page.fill(f"//input[@ng-reflect-name='{field}']", str(row[key]))
     page.click("input:text('Submit')")
