@@ -24,7 +24,9 @@ def solve_challenge():
     )
     try:
         # Reads a table from an Excel file hosted online.
-        excel_file = download_file(EXCEL_URL, OUTPUT_DIR, FILE_NAME)
+        excel_file = download_file(
+            EXCEL_URL, target_dir=OUTPUT_DIR, target_filename=FILE_NAME
+        )
         excel = Excel()
         excel.open_workbook(excel_file)
         rows = excel.read_worksheet_as_table("Sheet1", header=True)
@@ -42,7 +44,7 @@ def solve_challenge():
         print("Automation finished!")
 
 
-def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
+def download_file(url: str, *, target_dir: Path, target_filename: str) -> Path:
     """
     Downloads a file from the given URL into a custom folder & name.
 
@@ -59,9 +61,9 @@ def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
     response.raise_for_status()  # this will raise an exception if the request fails
     # Write the content of the request response to the target file.
     target_dir.mkdir(exist_ok=True)
-    download_file = target_dir / target_filename
-    download_file.write_bytes(response.content)
-    return download_file
+    local_file = target_dir / target_filename
+    local_file.write_bytes(response.content)
+    return local_file
 
 
 def fill_and_submit_form(row: dict, *, page: browser.Page):
