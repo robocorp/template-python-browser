@@ -13,7 +13,8 @@ OUTPUT_DIR = Path(os.getenv("ROBOT_ARTIFACTS", "output"))
 
 @task
 def solve_challenge():
-    """Main task which solves the RPA challenge!
+    """
+    Main task which solves the RPA challenge!
 
     Downloads the source data Excel file and uses Playwright to fill the entries inside
     rpachallenge.com.
@@ -42,7 +43,8 @@ def solve_challenge():
 
 
 def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
-    """Downloads a file from the given URL into a custom folder & name.
+    """
+    Downloads a file from the given URL into a custom folder & name.
 
     Args:
         url (str): The target URL from which we'll download the file.
@@ -63,7 +65,8 @@ def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
 
 
 def fill_and_submit_form(row: dict, *, page: browser.Page):
-    """Fills a single form with the information of a single row from the table.
+    """
+    Fills a single form with the information of a single row from the table.
 
     Args:
         row (dict): One row from the generated table out of the input Excel file.
