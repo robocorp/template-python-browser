@@ -38,7 +38,7 @@ def solve_challenge():
         browser.screenshot(element)
     finally:
         # A place for teardown and cleanups. (Playwright handles browser closing)
-        print("Automation finished successfully!")
+        print("Automation finished!")
 
 
 def download_file(url: str, target_dir: Path, target_filename: str) -> Path:
