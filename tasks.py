@@ -20,7 +20,7 @@ def solve_challenge():
     rpachallenge.com.
     """
     browser.configure(
-        browser_engine="chromium", screenshot="only-on-failure", headless=True
+        browser_engine="chromium", screenshot="only-on-failure", headless=True, isolated=True
     )
     try:
         # Reads a table from an Excel file hosted online.
