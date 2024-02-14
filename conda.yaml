@@ -10,7 +10,10 @@ dependencies:
   - robocorp-truststore=0.8.0     # https://pypi.org/project/robocorp-truststore/
   - pip=23.2.1                    # https://pip.pypa.io/en/stable/news
   - pip:
-    - rpaframework==28.1.0        # https://rpaframework.org/releasenotes.html
-    - robocorp==1.6.0             # https://pypi.org/project/robocorp
+    - rpaframework==28.2.0        # https://rpaframework.org/releasenotes.html
+    - robocorp==1.6.2             # https://pypi.org/project/robocorp
     - robocorp-browser==2.2.2     # https://pypi.org/project/robocorp-browser
     - requests==2.31.0            # https://pypi.org/project/requests
+
+rccPostInstall:
+  - python -m robocorp.browser install chromium --isolated
