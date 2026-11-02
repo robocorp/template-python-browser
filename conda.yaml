@@ -7,8 +7,8 @@ channels:
 
 dependencies:
   - python=3.14.7                 # https://pyreadiness.org/3.14
-  - uv=0.10.9                     # https://pypi.org/project/uv
+  - uv=0.13.6                     # https://pypi.org/project/uv
   - pip:
-    - rpaframework==33.0.2        # https://rpaframework.org/releasenotes.html
-    - robocorp==3.1.4             # https://pypi.org/project/robocorp
+    - rpaframework==34.0.0        # https://rpaframework.org/releasenotes.html
+    - robocorp==3.1.7             # https://pypi.org/project/robocorp
     - robocorp-browser==2.4.0     # https://pypi.org/project/robocorp-browser
