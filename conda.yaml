@@ -7,9 +7,9 @@ channels:
 
 dependencies:
   - openssl=3.5.9
-  - python=3.14.7                 # https://pyreadiness.org/3.14
+  - python=3.14.10                # https://pyreadiness.org/3.14
   - uv=0.13.6                     # https://pypi.org/project/uv
   - pip:
-    - rpaframework==34.0.1        # https://rpaframework.org/releasenotes.html
-    - robocorp==3.1.7             # https://pypi.org/project/robocorp
+    - rpaframework==34.1.0        # https://rpaframework.org/releasenotes.html
+    - robocorp==3.2.0             # https://pypi.org/project/robocorp
     - robocorp-browser==2.4.0     # https://pypi.org/project/robocorp-browser
